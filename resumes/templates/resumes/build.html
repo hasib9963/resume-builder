@@ -1,0 +1,429 @@
+{% extends 'resumes/base.html' %}
+
+{% block content %}
+<div class="resume-builder-container">
+    <div class="builder-header text-center mb-5">
+        <h1 class="display-4 mb-3"><i class="fas fa-magic me-2"></i> Craft Your Masterpiece</h1>
+        <p class="lead text-muted">Build a resume that gets you noticed</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="resume-form-card">
+                <!-- Progress Steps -->
+                <div class="form-steps">
+                    <div class="step active">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Personal</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Experience</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Education</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-label">Skills</div>
+                    </div>
+                </div>
+
+                <!-- Form Content -->
+                <div class="form-content">
+                    {% if form.errors %}
+                    <div class="alert alert-elegant">
+                        <i class="fas fa-exclamation-circle me-2"></i> Please correct the errors below
+                    </div>
+                    {% endif %}
+
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Personal Information Section -->
+                        <div class="form-section active">
+                            <div class="section-header">
+                                <h3><i class="fas fa-user me-2"></i>Personal Information</h3>
+                                <p class="section-description">Tell us about yourself</p>
+                            </div>
+                            
+                            <div class="form-group floating-label">
+                                {{ form.full_name }}
+                                <label for="{{ form.full_name.id_for_label }}">Full Name</label>
+                                <div class="invalid-feedback">Please enter your full name</div>
+                            </div>
+                            
+                            <div class="form-group floating-label">
+                                {{ form.title }}
+                                <label for="{{ form.title.id_for_label }}">Professional Title</label>
+                                <div class="invalid-feedback">Enter your professional title</div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        {{ form.email }}
+                                        <label for="{{ form.email.id_for_label }}">Email Address</label>
+                                        <div class="invalid-feedback">Please enter a valid email</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        {{ form.phone }}
+                                        <label for="{{ form.phone.id_for_label }}">Phone Number</label>
+                                        <div class="invalid-feedback">Enter your phone number</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group floating-label">
+                                {{ form.summary }}
+                                <label for="{{ form.summary.id_for_label }}">Professional Summary</label>
+                                <div class="form-hint">Describe your professional identity in 3-5 sentences</div>
+                                <div class="invalid-feedback">Please provide a summary</div>
+                            </div>
+                        </div>
+                        <!-- Experience Section -->
+                        <div class="form-section" id="section-experience">
+                            <div class="section-header">
+                                <h3><i class="fas fa-briefcase me-2"></i>Work Experience</h3>
+                                <p class="section-description">Detail your professional journey</p>
+                            </div>
+                            
+                            <div class="form-group floating-label">
+                                {{ form.experience }}
+                                <label for="{{ form.experience.id_for_label }}">Your Experience</label>
+                                <div class="form-hint">Include positions, companies, and achievements</div>
+                                <div class="invalid-feedback">Please provide your experience</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Education Section -->
+                        <div class="form-section" id="section-education">
+                            <div class="section-header">
+                                <h3><i class="fas fa-graduation-cap me-2"></i>Education</h3>
+                                <p class="section-description">Your academic background</p>
+                            </div>
+                            
+                            <div class="form-group floating-label">
+                                {{ form.education }}
+                                <label for="{{ form.education.id_for_label }}">Education Details</label>
+                                <div class="form-hint">Degrees, institutions, and years</div>
+                                <div class="invalid-feedback">Please provide your education</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Skills Section -->
+                        <div class="form-section" id="section-skills">
+                            <div class="section-header">
+                                <h3><i class="fas fa-tools me-2"></i>Skills</h3>
+                                <p class="section-description">Your professional capabilities</p>
+                            </div>
+                            
+                            <div class="form-group floating-label">
+                                {{ form.skills }}
+                                <label for="{{ form.skills.id_for_label }}">Your Skills</label>
+                                <div class="form-hint">Separate with commas</div>
+                                <div class="invalid-feedback">Please list your skills</div>
+                            </div>
+                        </div>
+                        <!-- Navigation Buttons -->
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-outline-secondary btn-prev" disabled>
+                                <i class="fas fa-arrow-left me-2"></i>Previous
+                            </button>
+                            <button type="button" class="btn btn-primary btn-next">
+                                Next <i class="fas fa-arrow-right ms-2"></i>
+                            </button>
+                            <button type="submit" class="btn btn-success btn-submit">
+                                <i class="fas fa-check-circle me-2"></i>Generate Resume
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .resume-builder-container {
+        padding: 40px 0;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        min-height: 100vh;
+    }
+    
+    .builder-header {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .resume-form-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        overflow: hidden;
+        padding: 30px;
+    }
+    
+    .form-steps {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        position: relative;
+    }
+    
+    .form-steps::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #e9ecef;
+        z-index: 1;
+    }
+    
+    .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .step-number {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #e9ecef;
+        color: #6c757d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        margin-bottom: 8px;
+        transition: all 0.3s;
+    }
+    
+    .step.active .step-number {
+        background: #3a4f6c;
+        color: white;
+    }
+    
+    .step-label {
+        color: #6c757d;
+        font-weight: 500;
+    }
+    
+    .step.active .step-label {
+        color: #3a4f6c;
+        font-weight: 600;
+    }
+    
+    .form-content {
+        padding: 0 15px;
+    }
+    
+    .form-section {
+        display: none;
+    }
+    
+    .form-section.active {
+        display: block;
+    }
+    
+    .section-header {
+        margin-bottom: 30px;
+    }
+    
+    .section-header h3 {
+        color: #3a4f6c;
+        font-weight: 600;
+    }
+    
+    .section-description {
+        color: #6c757d;
+    }
+    
+    .form-group {
+        position: relative;
+        margin-bottom: 25px;
+    }
+    
+    .floating-label input,
+    .floating-label textarea {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s;
+    }
+    
+    .floating-label textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+    
+    .floating-label input:focus,
+    .floating-label textarea:focus {
+        border-color: #3a4f6c;
+        box-shadow: 0 0 0 0.2rem rgba(58, 79, 108, 0.25);
+        outline: none;
+    }
+    
+    .floating-label label {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        color: #6c757d;
+        transition: all 0.3s;
+        pointer-events: none;
+        background: white;
+        padding: 0 5px;
+    }
+    
+    .floating-label input:focus + label,
+    .floating-label input:not(:placeholder-shown) + label,
+    .floating-label textarea:focus + label,
+    .floating-label textarea:not(:placeholder-shown) + label {
+        top: -10px;
+        left: 10px;
+        font-size: 12px;
+        color: #3a4f6c;
+    }
+    
+    .form-hint {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 5px;
+    }
+    
+    .form-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #e9ecef;
+    }
+    
+    .btn-submit {
+        display: none;
+    }
+    
+    .alert-elegant {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        border-radius: 8px;
+        padding: 12px 20px;
+        margin-bottom: 25px;
+    }
+    
+    .invalid-feedback {
+        color: #dc3545;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+    
+    .is-invalid {
+        border-color: #dc3545 !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Form navigation
+        const formSections = document.querySelectorAll('.form-section');
+        const steps = document.querySelectorAll('.step');
+        const prevBtn = document.querySelector('.btn-prev');
+        const nextBtn = document.querySelector('.btn-next');
+        const submitBtn = document.querySelector('.btn-submit');
+        
+        let currentSection = 0;
+        
+        // Show current section
+        showSection(currentSection);
+        
+        function showSection(n) {
+            // Hide all sections
+            formSections.forEach(section => section.classList.remove('active'));
+            
+            // Show current section
+            formSections[n].classList.add('active');
+            
+            // Update step indicators
+            steps.forEach((step, index) => {
+                if (index <= n) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+            
+            // Update buttons
+            if (n === 0) {
+                prevBtn.disabled = true;
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+            } else if (n === formSections.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+            } else {
+                prevBtn.disabled = false;
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+            }
+        }
+        
+        nextBtn.addEventListener('click', function() {
+            if (validateSection(currentSection)) {
+                currentSection++;
+                showSection(currentSection);
+            }
+        });
+        
+        prevBtn.addEventListener('click', function() {
+            currentSection--;
+            showSection(currentSection);
+        });
+        
+        function validateSection(n) {
+            let isValid = true;
+            const currentSection = formSections[n];
+            const inputs = currentSection.querySelectorAll('input, textarea');
+            
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+            
+            return isValid;
+        }
+        
+        // Initialize floating labels
+        document.querySelectorAll('.floating-label input, .floating-label textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentNode.querySelector('label').classList.add('active');
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.parentNode.querySelector('label').classList.remove('active');
+                }
+            });
+            
+            // Check on load if there's already content
+            if (input.value) {
+                input.parentNode.querySelector('label').classList.add('active');
+            }
+        });
+    });
+</script>
+{% endblock %}

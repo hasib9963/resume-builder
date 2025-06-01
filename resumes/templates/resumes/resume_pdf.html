@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ resume.full_name }} - Professional Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .resume-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3a4f6c;
+            padding-bottom: 20px;
+        }
+        
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #3a4f6c;
+            margin-bottom: 5px;
+        }
+        
+        .title {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #3a4f6c;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .summary {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill {
+            background-color: #f0f4f8;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        
+        .experience-item, .education-item {
+            margin-bottom: 15px;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .item-title {
+            font-weight: 600;
+        }
+        
+        .item-date {
+            color: #666;
+        }
+        
+        .item-subtitle {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .item-description {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-header">
+        <div class="name">{{ resume.full_name }}</div>
+        <div class="title">{{ resume.title }}</div>
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i> {{ resume.email }}
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i> {{ resume.phone }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <div class="summary">{{ resume.summary }}</div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Skills</div>
+        <div class="skills-list">
+            {% for skill in resume.skills.splitlines %}
+                <div class="skill">{{ skill }}</div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Work Experience</div>
+        {% for exp in resume.experience.splitlines %}
+            {% if exp %}
+                <div class="experience-item">
+                    <div class="item-description">{{ exp }}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Education</div>
+        {% for edu in resume.education.splitlines %}
+            {% if edu %}
+                <div class="education-item">
+                    <div class="item-description">{{ edu }}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>
